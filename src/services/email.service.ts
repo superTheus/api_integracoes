@@ -18,7 +18,11 @@ export const transporter = nodemailer.createTransport({
  * @param email - E-mail do destinatário
  * @param jsonData - Objeto JSON a ser enviado
  */
-export const sendEmail = async (email: string, jsonData: object) => {
+export const sendEmail = async ({ email, subject, jsonData }: {
+  email: string, 
+  subject: string,
+  jsonData: object
+}) => {
   try {
     // Template do e-mail com JSON formatado
     const emailTemplate = `
@@ -33,7 +37,7 @@ export const sendEmail = async (email: string, jsonData: object) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
-      subject: "JSON de retorno ASAAS",
+      subject: subject,
       html: emailTemplate,
     };
     // Enviar e-mail
