@@ -38,7 +38,8 @@ export class WebHooksController {
         subject: "Webhook de Validação de Transferência Recebido",
         jsonData: req.body
       })
-      res.status(200).send("Webhook received");
+
+      res.json({ status: "APPROVED" });
     } catch (error) {
       res.status(500).send("Internal Server Error");
     }
