@@ -30,4 +30,17 @@ export class WebHooksController {
       res.status(500).send("Internal Server Error");
     }
   }
+
+  async hookTransferValidation(req: Request, res: Response) {
+    try {
+      await sendEmail({
+        email: process.env.EMAIL_DESTINARION || "",
+        subject: "Webhook de Validação de Transferência Recebido",
+        jsonData: req.body
+      })
+      res.status(200).send("Webhook received");
+    } catch (error) {
+      res.status(500).send("Internal Server Error");
+    }
+  }
 }

@@ -11,6 +11,10 @@ const webHooksRoutes = (app: Express): void => {
   app.post("/webhook/transfer", (req: Request, res: Response): void => {
     webHooksController.hookTransfer(req, res);
   });
+
+  app.post("/webhook/transfer-validation", (req: Request, res: Response): void => {
+    webHooksController.hookTransferValidation(req, res);
+  });
 };
 
 export default webHooksRoutes;
