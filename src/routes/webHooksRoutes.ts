@@ -15,6 +15,10 @@ const webHooksRoutes = (app: Express): void => {
   app.post("/webhook/transfer-validation", (req: Request, res: Response): void => {
     webHooksController.hookTransferValidation(req, res);
   });
+
+  app.post("/webhook/split/payment", (req: Request, res: Response): void => {
+    webHooksController.hookPaymentSplit(req, res);
+  });
 };
 
 export default webHooksRoutes;
