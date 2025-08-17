@@ -45,8 +45,22 @@ export class WebHooksController {
   async hookTransferValidation(req: Request, res: Response) {
     try {
       await sendEmail({
-        email: process.env.EMAIL_DESTINARION || "",
+        email: process.env.EMAIL_DESTINATION || "",
         subject: "Webhook de Validação de Transferência Recebido",
+        jsonData: req.body
+      })
+
+      res.json({ status: "APPROVED" });
+    } catch (error) {
+      res.status(500).send("Internal Server Error");
+    }
+  }
+
+  async hookPaymentSplit(req: Request, res: Response) {
+    try {
+      await sendEmail({
+        email: process.env.EMAIL_DESTINATION || "",
+        subject: "Webhook de Split de Pagamento Recebido",
         jsonData: req.body
       })
 
