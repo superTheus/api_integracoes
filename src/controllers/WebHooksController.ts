@@ -1,17 +1,26 @@
 import { Request, Response } from "express";
 import { sendEmail } from "../services/email.service";
 import dotenv from "dotenv";
+import { ApiService, Hook } from "../services/apis.service";
 
 dotenv.config();
 
 export class WebHooksController {
+  private readonly apiInstance: ApiService;
+
+  constructor() {
+    this.apiInstance = new ApiService();
+  }
+
   async hookTransaction(req: Request, res: Response) {
     try {
-      await sendEmail({
-        email: process.env.EMAIL_DESTINARION || "",
-        subject: "Webhook de Transação Recebido",
-        jsonData: req.body
-      })
+      const hookData: Hook = {
+        tipo: "TS",
+        titulo: "Transação Recebida",
+        conteudo: JSON.stringify(req.body)
+      };
+
+      await this.apiInstance.create(hookData);
       res.status(200).send("Webhook received");
     } catch(error) {
       res.status(500).send("Internal Server Error");
@@ -20,11 +29,13 @@ export class WebHooksController {
 
   async hookTransfer(req: Request, res: Response) {
     try {
-      await sendEmail({
-        email: process.env.EMAIL_DESTINARION || "",
-        subject: "Webhook de Transferência Recebido",
-        jsonData: req.body
-      })
+      const hookData: Hook = {
+        tipo: "TF",
+        titulo: "Transferência Recebida",
+        conteudo: JSON.stringify(req.body)
+      };
+
+      await this.apiInstance.create(hookData);
       res.status(200).send("Webhook received");
     } catch (error) {
       res.status(500).send("Internal Server Error");
