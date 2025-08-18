@@ -33,7 +33,8 @@ export class ApiService {
     try {
       const response = await this.axiosInstance.post("/hooks/create", hookData);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error.response?.data || error.message);
       throw new Error(`Error creating data: ${error}`);
     }
   }
@@ -42,7 +43,8 @@ export class ApiService {
     try {
       const response = await this.axiosInstance.post(`/hooks/update/${id}`, hookData);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error.response?.data || error.message);
       throw new Error(`Error updating data: ${error}`);
     }
   }
