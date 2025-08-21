@@ -21,12 +21,12 @@ export class WebHooksController {
       };
 
       await Promise.all([
-        this.apiInstance.create(hookData),
-        sendEmail({
-          email: process.env.EMAIL_DESTINATION || "",
-          subject: "Webhook de Transação Recebida",
-          jsonData: req.body
-        })
+        this.apiInstance.create(hookData)
+        // sendEmail({
+        //   email: process.env.EMAIL_DESTINATION || "",
+        //   subject: "Webhook de Transação Recebida",
+        //   jsonData: req.body
+        // })
       ])
 
       res.status(200).send("Webhook received");
@@ -44,12 +44,12 @@ export class WebHooksController {
       };
 
       await Promise.all([
-        this.apiInstance.create(hookData),
-        sendEmail({
-          email: process.env.EMAIL_DESTINATION || "",
-          subject: "Webhook de Transferência Recebida",
-          jsonData: req.body
-        })
+        this.apiInstance.create(hookData)
+        // sendEmail({
+        //   email: process.env.EMAIL_DESTINATION || "",
+        //   subject: "Webhook de Transferência Recebida",
+        //   jsonData: req.body
+        // })
       ])
 
       res.status(200).send("Webhook received");
